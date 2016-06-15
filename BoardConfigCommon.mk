@@ -15,9 +15,6 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a53.a57
 
-# big.LITTLE load balancing
-ENABLE_CPUSETS := true
-
 TARGET_BOOTLOADER_BOARD_NAME := universal5433
 
 BOARD_KERNEL_BASE := 0x10000000
@@ -64,24 +61,14 @@ BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 # Graphics
 USE_OPENGL_RENDERER := true
 
-# Shader cache config options
-# Maximum size of the  GLES Shaders that can be cached for reuse.
-# Increase the size if shaders of size greater than 12KB are used.
-MAX_EGL_CACHE_KEY_SIZE := 12*1024
-
-# Maximum GLES shader cache size for each app to store the compiled shader
-# binaries. Decrease the size if RAM or Flash Storage size is a limitation
-# of the device.
-MAX_EGL_CACHE_SIZE := 2048*1024
-
-# frameworks/native/services/surfaceflinger
-# Android keeps 2 surface buffers at all time in case the hwcomposer
-# misses the time to swap buffers (in cases where it takes 16ms or
-# less). Use 3 to avoid timing issues.
+# Avoid buffer swap timing issues
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
 # HWCServices
 BOARD_USES_HWC_SERVICES := true
+
+# Virtual Display
+BOARD_USES_VIRTUAL_DISPLAY := true
 
 # HDMI
 BOARD_USES_NEW_HDMI := true
@@ -92,7 +79,6 @@ BOARD_USES_SKIA_FIMGAPI := true
 
 # (G)SCALER
 BOARD_USES_SCALER := true
-BOARD_USES_DT := true
 
 # Samsung LSI OpenMAX
 COMMON_GLOBAL_CFLAGS += -DUSE_NATIVE_SEC_NV12TILED
@@ -157,7 +143,6 @@ CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
 BOARD_VENDOR := samsung
 BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_NEEDS_VIDEO_CALL_FIELD := true
-TARGET_IGNORE_RO_BOOT_REVISION := true
 
 # RIL.java overwrite
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
